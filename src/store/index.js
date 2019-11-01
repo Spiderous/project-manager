@@ -7,12 +7,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    dialog: false,
+    xd: false
   },
   mutations: {
     addProducts: (state, products) => {
       state.products = [...state.products, ...products];
-
+    },
+    switchDialog: (state) => {
+      state.dialog = !state.dialog;
     }
   },
   actions: {
@@ -34,6 +38,11 @@ export default new Vuex.Store({
       });
 
       context.commit('addProducts', products);
+    },
+    switchLoginDialog: (context) => {
+
+      context.commit('switchDialog');
+      console.log(context.state.dialog);
     }
   },
   getters: {
@@ -42,6 +51,8 @@ export default new Vuex.Store({
         ...product,
         added: new Date(product.added.seconds * 1000).toDateString()
       }))
-    }
+    },
+    getDialogState: state => state.dialog,
+    test: state => state.xd
   }
 });

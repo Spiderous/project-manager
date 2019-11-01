@@ -1,12 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="450">
-    <template v-slot:activator="{ on }">
-      <v-btn outlined color="white" class="ma-2 hidden-xs-only" v-on="on">
-        <v-icon left>mdi-login</v-icon>
-        <span>LOG IN</span>
-      </v-btn>
-    </template>
-
+  <v-dialog v-model="getState" max-width="450">
     <v-card flat>
       <v-card-title>{{ registerSwitch ? "Rejestracja" : "Logowanie" }}</v-card-title>
 
@@ -53,26 +46,39 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
-  name: "login-popup",
-  data: () => ({
-    dialog: false,
-    valid: false,
-    registerSwitch: false,
-    loading: false
-  }),
+  name: "login-dialog",
+  data: function() {
+    return {
+      valid: false,
+      registerSwitch: false,
+      loading: false
+    };
+  },
+  computed: {
+    ...mapGetters(["getDialogState"]),
+    getState: {
+      get: function() {
+        return this.getDialogState;
+      },
+      set: function(newValue) {
+        this.switchLoginDialog();
+      }
+    },
+    computedSwitchOption: function() {
+      return this.registerSwitch ? "Rejestracja" : "Logowanie";
+    }
+  },
   methods: {
+    ...mapActions(["switchLoginDialog"]),
     clicked() {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
-        this.dialog = false;
+        this.switchLoginDialog();
       }, 2000);
-    }
-  },
-  computed: {
-    computedSwitchOption() {
-      return this.registerSwitch ? "Rejestracja" : "Logowanie";
     }
   }
 };

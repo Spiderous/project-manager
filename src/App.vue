@@ -4,28 +4,12 @@
       <v-toolbar-title>
         <span class="font-weight-light headline text-uppercase">PROJECT</span>
         <span class="headline ml-1">MANAGER</span>
+        <sup class="ml-1 grey--text caption">v0.5a</sup>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <LoginPopUp />
-
-      <!-- <v-menu offset-y v-if="logged">
-        <template v-slot:activator="{ on }">
-          <v-btn depressed v-on="on">
-            <span class="headline">MENU</span>
-          </v-btn>
-        </template>
-
-        <v-list-item-group>
-          <v-list-item v-for="(item, i) in items" :key="i" router :to="item.route">
-            <v-icon left class="primary--text">{{ item.icon }}</v-icon>
-            <v-list-item-content>
-              <v-list-item-title class="body-1">{{item.desc}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-menu>-->
+      <v-btn @click="dialog = dialog ? false : true">Zaloguj się!</v-btn>
     </v-app-bar>
 
     <v-content>
@@ -47,11 +31,13 @@
         </v-list>
       </v-container>
     </v-content>-->
+
+    <LoginDialog />
   </v-app>
 </template>
 
 <script>
-import LoginPopUp from "@/components/LoginPopUp";
+import LoginDialog from "@/components/LoginDialog";
 import { mapGetters, mapActions } from "vuex";
 
 // import { db } from "@/fb";
@@ -59,9 +45,10 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: {
-    LoginPopUp
+    LoginDialog
   },
   data: () => ({
+    dialog: false,
     logged: false,
     docs: [],
     items: [

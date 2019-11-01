@@ -2,27 +2,39 @@
   <v-container id="homepage" class="fill-height" fluid>
     <v-container id="content" class="fill-height" fluid>
       <div>
-        <div class="display-4 yellow black--text pa-2">Stwórz własny projekt.</div>
-        <span
-          class="float-right display-1 font-weight-light yellow pa-1 black--text"
-        >Szybko i skutecznie.</span>
+        <h1 class="display-4 white--text pa-2">Stwórz własny projekt.</h1>
+        <h2
+          class="float-md-right float-sm-left display-1 font-weight-light pa-1 grey--text"
+        >Szybko i skutecznie.</h2>
       </div>
+
+      <v-btn @click="switchLoginDialog">Zaloguj się!</v-btn>
     </v-container>
   </v-container>
   <!---->
 </template>
 
 <script>
+import LoginDialog from "@/components/LoginDialog";
+import { mapActions } from "vuex";
+
 export default {
-  name: "homepage"
+  name: "homepage",
+  components: {
+    LoginDialog
+  },
+  data: function() {
+    return {
+      dialog: false
+    };
+  },
+  methods: {
+    ...mapActions(["switchLoginDialog"])
+  }
 };
 </script>
 
 <style>
-div {
-  /* height: 100%; */
-  /* background-color: red; */
-}
 #homepage {
   position: relative;
   background: url("https://images.pexels.com/photos/159657/paint-notebook-brush-pencil-159657.jpeg");
